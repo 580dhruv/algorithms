@@ -1,46 +1,34 @@
-#numberlist = [1,2,4,5,432,24,79,75,89,72]
-def Sort_And_Count(numberList,length):
+def sort_and_count(number_list,length):
     if length==1:
-        return numberList,0
+        return number_list,0
     else :
-        B,X= Sort_And_Count(numberList[:length//2],length//2)
-        C,Y= Sort_And_Count(numberList[(length//2):],length-(length//2))
-        D,inv_count= new_function(B,C)
-    return D,(X+Y+inv_count)
-    
-array_1=[8]
-array_2=[4,7]
+        left_half,left_inner_inv= sort_and_count(number_list[:length//2],length//2)
+        right_half,right_inner_inv= sort_and_count(number_list[(length//2):],length-(length//2))
+        merged_list,inv_count= merge_and_count_split_inversions(left_half,right_half)
+    return merged_list,(left_inner_inv+right_inner_inv+inv_count)
 
-def new_function(array_1,array_2):
+def merge_and_count_split_inversions(left_half,right_half):
     merged_array=[]
-    a1_index=a2_index=0
-    count=0
-    #i<j and b[i]>c[j] ==> count+=1
-    while a1_index<len(array_1) and a2_index<len(array_2):
-        if array_1[a1_index]>array_2[a2_index]:
-            count+=len(array_1[a1_index:])
-            merged_array.append(array_2[a2_index])
-            a2_index+=1
+    left_array_index=right_array_index=0
+    count=0    
+    while left_array_index<len(left_half) and right_array_index<len(right_half):
+        if left_half[left_array_index]>right_half[right_array_index]:
+            count+=len(left_half[left_array_index:])
+            merged_array.append(right_half[right_array_index])
+            right_array_index+=1
         else:
-            merged_array.append(array_1[a1_index])
-            a1_index+=1
-    merged_array+=array_1[a1_index:]
-    merged_array+=array_2[a2_index:]
+            merged_array.append(left_half[left_array_index])
+            left_array_index+=1
+    merged_array+=left_half[left_array_index:]
+    merged_array+=right_half[right_array_index:]
     return merged_array,count
 
+def load_numbers():
+    file = open("IntegerArray.txt","r")
+    file_data = file.readlines()
+    return [int(num.strip()) for num in file_data]
 
-# numberlist = [6,1,3,0]
-# Sort_And_Count(numberlist,len(numberlist))
-
-# new_function(array_1,array_2)
-def loadNumbers():
-    File = open("IntegerArray.txt","r")
-    data = File.readlines()
-    return [int(num.strip()) for num in data]
-
-numberlist = loadNumbers()
-# numberlist=[8,7,4]
-# numberlist = [1,2,4,5,432,24,79,75,89,72]
-print(Sort_And_Count(numberlist,len(numberlist)))
+number_list = load_numbers()
+print(sort_and_count(number_list,len(number_list)))
 
 
