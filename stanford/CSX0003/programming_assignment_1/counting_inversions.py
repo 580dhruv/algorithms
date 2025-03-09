@@ -7,9 +7,7 @@ def Sort_And_Count(numberList,length):
         C,Y= Sort_And_Count(numberList[(length//2):],length-(length//2))
         D,inv_count= new_function(B,C)
     return D,(X+Y+inv_count)
-
-
-
+    
 array_1=[8]
 array_2=[4,7]
 

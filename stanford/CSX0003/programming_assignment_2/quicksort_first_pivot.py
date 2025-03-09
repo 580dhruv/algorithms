@@ -6,23 +6,20 @@ def load_numbers():
 total = 0
 def count_comparisons(number_list,length):
     merged =[]
-    global total
-    left = 0
-    right = length
+    global total 
     print("number_list :",number_list)
-    if left>=right:
+    if length<=1:
         return number_list
     else :
         p = choose_pivot(number_list)
         index = partition_number_list(number_list,p)
-        print("index :",index ,"left :",left,"right :",right)
+        print("index :",index)
         left_half = number_list[:index]
         right_half = number_list[index+1:]
         print("left :",left_half,"right :",right_half)
         first_half = count_comparisons(left_half,len(left_half))
         second_half = count_comparisons(right_half,len(right_half))
         total+=(length-1)
-        print(total)
         merged+=first_half+second_half
         print("merged :", merged)
         merged.insert(index,p)
@@ -54,4 +51,5 @@ number_list = list(load_numbers())
 # number_list = [7, 7, 7, 7, 7, 7, 7, 7]
 print(number_list)
 print(count_comparisons(number_list,len(number_list)))
+print(total)
 

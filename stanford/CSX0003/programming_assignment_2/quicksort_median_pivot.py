@@ -6,11 +6,13 @@ def load_numbers():
 total = 0
 def count_comparisons(number_list,length):
     merged =[]
+    global total 
     print("number_list :",number_list)
     if length<=1:
         return number_list
     else :
-        p = choose_pivot(number_list)
+        number_list,p = choose_pivot(number_list)
+        print(p,"numberlist :",number_list)
         index = partition_number_list(number_list,p)
         print("index :",index)
         left_half = number_list[:index]
@@ -18,6 +20,7 @@ def count_comparisons(number_list,length):
         print("left :",left_half,"right :",right_half)
         first_half = count_comparisons(left_half,len(left_half))
         second_half = count_comparisons(right_half,len(right_half))
+        total+=(length-1)
         merged+=first_half+second_half
         print("merged :", merged)
         merged.insert(index,p)
@@ -25,7 +28,20 @@ def count_comparisons(number_list,length):
         return merged
 
 def choose_pivot(number_list):
-    return number_list[0]
+    selected = [number_list[0]]
+    selected.append(number_list[-1])
+    if len(number_list)%2 ==0:
+        selected.append(number_list[(len(number_list)//2)-1])
+    else :
+        selected.append(number_list[(len(number_list)//2)])
+    selected.sort()
+    pivot = selected[1]
+    pivot_index = number_list.index(pivot)
+    print(pivot_index,pivot) 
+    if pivot_index != 0:
+        number_list[0],number_list[pivot_index] = pivot, number_list[0]
+        pivot_index =0
+    return number_list,pivot
 
 def partition_number_list(number_list,pivot):
     left = 0
@@ -49,4 +65,5 @@ number_list = list(load_numbers())
 # number_list = [7, 7, 7, 7, 7, 7, 7, 7]
 print(number_list)
 print(count_comparisons(number_list,len(number_list)))
+print(total)
 
