@@ -2,7 +2,7 @@
 def load_data(file_name):
     file = open(file_name,'r')
     data = file.readlines()
-    data = [[int(value) for value in row.strip().split('\te')] for row in data]
+    data = [[int(value) for value in row.strip().split('\t')] for row in data]
     return (data)
 #method to separate the adjacency list
 def create_list(data):
