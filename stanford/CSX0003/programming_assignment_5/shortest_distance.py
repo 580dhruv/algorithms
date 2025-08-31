@@ -18,6 +18,7 @@ def set_data_structure(data):
     max =0
     for row in data:
         vertex_weight_dict= {}
+        print(row)
         for column_index in range(1,len(row)):
             vertice_distance_dict[(row[0][0], row[column_index][0])] = abs(row[column_index][1])
             vertex_weight_dict[row[column_index][0]] = abs(row[column_index][1])
@@ -72,3 +73,4 @@ vertices_processed,vertex_short_dist,vertex_path_dict=compute_shortest_path(sour
 print("vertex_short_dist :",vertex_short_dist)
 print("vertex_path_dict :",vertex_path_dict)
 print("vertices_processed :",vertices_processed)
+
